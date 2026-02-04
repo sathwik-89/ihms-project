@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Add Medical Record</h2>
+<div class="card">
+    <p><strong>Patient:</strong> {{ appointment.patient.user.first_name }} {{ appointment.patient.user.last_name }}</p>
+    <p><strong>Date:</strong> {{ appointment.appointment_date }}</p>
+</div>
+
+<form method="post">
+    {% csrf_token %}
+    <h3>Diagnosis & Prescription</h3>
+    {{ record_form.as_p }}
+    <h3>Billing</h3>
+    {{ bill_form.as_p }}
+    <button type="submit" class="btn">Save Record & Generate Bill</button>
+</form>
+{% endblock %}

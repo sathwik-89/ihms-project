@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Doctor Dashboard</h2>
+<div class="card">
+    <h3>Welcome, {{ user.doctorprofile }}</h3>
+</div>
+
+<h3>Upcoming Appointments</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Patient</th>
+            <th>Date</th>
+            <th>Reason</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for appt in appointments %}
+        <tr>
+            <td>{{ appt.patient.user.first_name }} {{ appt.patient.user.last_name }}</td>
+            <td>{{ appt.appointment_date }}</td>
+            <td>{{ appt.reason }}</td>
+            <td>{{ appt.get_status_display }}</td>
+            <td>
+                {% if appt.status == 'pending' %}
+                <a href="{% url 'update_appointment_status' appt.pk 'approved' %}" class="btn btn-green">Approve</a>
+                <a href="{% url 'update_appointment_status' appt.pk 'rejected' %}" class="btn btn-red">Reject</a>
+                {% elif appt.status == 'approved' %}
+                <a href="{% url 'update_appointment_status' appt.pk 'completed' %}" class="btn">Complete & Add
+                    Record</a>
+                {% else %}
+                -
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No appointments assigned.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

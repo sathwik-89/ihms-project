@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="text-align: center; padding: 50px;">
+    <h2>Welcome to Integrated Hospital Management System</h2>
+    <p>Efficiently managing Doctor Appointments, Medical Records, and Billing.</p>
+    {% if not user.is_authenticated %}
+    <div style="margin-top: 30px;">
+        <a href="{% url 'signup_patient' %}" class="btn">I am a Patient</a>
+        <a href="{% url 'signup_doctor' %}" class="btn btn-green">I am a Doctor</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

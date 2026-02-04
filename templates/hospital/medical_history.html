@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Medical History</h2>
+{% for record in records %}
+<div class="card">
+    <p><strong>Date:</strong> {{ record.appointment.appointment_date }}</p>
+    <p><strong>Doctor:</strong> {{ record.appointment.doctor }}</p>
+    <p><strong>Diagnosis:</strong> {{ record.diagnosis }}</p>
+    <p><strong>Prescription:</strong> {{ record.prescription }}</p>
+</div>
+{% empty %}
+<p>No medical records found.</p>
+{% endfor %}
+<a href="{% url 'patient_dashboard' %}" class="btn">Back to Dashboard</a>
+{% endblock %}
